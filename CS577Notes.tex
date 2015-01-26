@@ -1,0 +1,100 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{graphicx}
+
+\title{Computer Science 577 Notes \\ Introduction to Algorithms}
+\author{Mendel C. Mayr}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\vspace{10pt}
+	\begin{center}
+		\includegraphics[width = 2.7in]{mergesort.png}
+		\end{center}
+	\vspace{12pt}
+	\tableofcontents
+	\clearpage
+
+	\section{Recurrence Relations and Analysis of Algorithms}
+		\subsection{Recurrence Relations}
+			\subsubsection{Recursive Analysis of Insertion and Merge Sort}
+				Insertion sort: let $M(n)$ be the comparisons required to sort a list of size $n$ \\
+				\\
+				Analysis: note that $M(1) = 0$ and $M(n) = M(n - 1) + n$ for $n > 1$
+				\begin{enumerate}[(i)]
+					\item $M(n) = M(n - 1) + n$
+					\item $M(n) = M(n - 2) + n + (n - 1)\:...$
+					\item $M(n) = M(n - k) + n + (n - 1) +\:...\:+ (n - k + 1)$
+					\item Let $k = n - 1$, $M(n) = M(1) + n(n - n + 1) + \sum_{i = 1}^{n - 1}i$
+					\item $M(n) = 0 + n + (n - 1)(n - 2)/2 \approx n^2/2$
+					\end{enumerate}
+				Merge sort: let $M(n)$ be the comparison required to sort a list of size $n$ \\
+				\\
+				Analysis: for simplcity, consider only $n$ such that $n = 2^a$ for some integer $a$ \\
+				Note that $M(1) = 0$ and $M(n) = 2M(n/2) + n$ for $n > 1$
+				\begin{enumerate}[(i)]
+				 	\item $M(n) = 2M(n/2) + n$
+				 	\item $M(n) = 2M(n/4) + n + (n/2)$
+				 	\item $M(n) = 2M(n/2^k) + n + (n/2) +\:....\:+ (n/2^{k - 1})$
+				 	\item Let $k = a$, $2M(1) + \sum_{i = 1}^{k - 1} n/2^i$ (unclarified point)
+				 	\item Mergsort is $O(n \log n)$
+				 	\end{enumerate}
+			\subsubsection{Recursive Linear Selection}
+				Recursive linear selection algorithm: given $x_1, x_2, ..., x_n$ distinct keys, find $x_k$ (i.e. the $k$th smallest element) without using sorting \\
+				Note: the rank of an element (i.e. the number of keys greater than it) can be found in linear time \\
+				Linear selection algorithm is as folows:
+				\begin{enumerate}[(i)]
+					\item Remove keys of known rank, to make $n = 5 (mod 10)$
+					\item Divide elements into groups of 5, denoted $S[i]$ for $i$ from $1$ to $n/5$
+					\item Recursively find the median of each group, denoted $x[i]$
+					\item Let $M^*$ be the median of the set $x[i]$ for $i$ from $1$ to $n/5$
+					\item Divide keys into groups of keys less than (call this $L$), equal to, or greater than (call this $R$) $M^*$
+					\item Recursiveley process one of $L$ or $R$
+					\end{enumerate}
+				Analysis: Note that steps 1, 2, and 5 are $O(n)$, so the number of computations for this algorithm, $T(n) = T(n/5) + T(7n/10) + O(n)$ \\
+				Guessing and proving: supposed that $T(n) = O(n)$, which can be proven via strong induction, i.e. $T(n) < An$ for some constant $A$ for all $n$ \\
+				Recall that strong induction relies on proving two claims:
+				\begin{enumerate}[(i)]
+					\item The statement holds for all $n \geq 1$, $\forall n \leq n_0$ (base case)
+					\item If the statmenet holds for all $i < n$, it holds for $n$
+					\end{enumerate}
+				Proof of second part of strong inductive proof:
+				\begin{enumerate}[(i)]
+					\item Suppose that $T(n) = O(n)$ for $i < n$
+					\item We seek and $A$ such that $A(n/5) + A(7n/10) + cn \leq An$
+					\item Thus, $A \geq 10c$ is sufficient for this part
+					\end{enumerate}
+				Proof of first part of strong inductive proof: need $A$ such that $n(n - 1)/2 \leq An$ for $1 \leq n \leq 10$ \\
+				So $A \geq 9/10$ is sufficient for this part \\
+				\\
+				Conclusion: $A = max\{9/2, 10c\}$ will suffice to show that $T(n) = O(n)$ \\
+			\subsubsection{Recursive Quadratic Closest-Pair}
+				Recursive quadratic algorithm: find closest pair of points
+				\begin{enumerate}[i]
+					\item (Supposing that $n = 2^k$) into 2 equal groups, denoted $L$ and $R$
+					\item Recurisvely find the closest pair in $L$ and $R$
+					\item Report closest pair form testing elements of $L$ against elements of $R$
+					\item Report best pair out of those from steps (ii) and (iii)
+					\end{enumerate}
+				Analysis: $T(n) = 2(T/n) + O(n^2)$ for $n = 2^k \geq 4$, $T(2) = 1$ \\
+				The $O(n^2)$ in the recursive case comes from step (iii) \\
+				\\
+				Consider the recursion tree, which is full binary tree: at the first level, the problem size is $n, n/2, n/4, ...$ at the first, second, third, etc. levels. Thus, the number of computations required is $n^2$ at the first level, $2(n/2)^2 = n^2/2$ at the second level, $2(n/4)^2 = n^2/4$ at the third, etc. \\
+				\\
+				Thus, the maximum number of computations is $\sum_{k = 1}^\infty n^2/2^k = 2n^2$, thus $T(n) = O(n^2)$
+
+
+
+
+
+
+	\appendix
+
+
+	\end{document}
