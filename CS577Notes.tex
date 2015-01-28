@@ -73,7 +73,7 @@
 				Proof of first part of strong inductive proof: need $A$ such that $n(n - 1)/2 \leq An$ for $1 \leq n \leq 10$ \\
 				So $A \geq 9/10$ is sufficient for this part \\
 				\\
-				Conclusion: $A = max\{9/2, 10c\}$ will suffice to show that $T(n) = O(n)$ \\
+				Conclusion: $A = max\{9/2, 10c\}$ will suffice to show that $T(n) = O(n)$ 
 			\subsubsection{Recursive Quadratic Closest-Pair}
 				Recursive quadratic algorithm: find closest pair of points
 				\begin{enumerate}[i]
@@ -88,13 +88,33 @@
 				Consider the recursion tree, which is full binary tree: at the first level, the problem size is $n, n/2, n/4, ...$ at the first, second, third, etc. levels. Thus, the number of computations required is $n^2$ at the first level, $2(n/2)^2 = n^2/2$ at the second level, $2(n/4)^2 = n^2/4$ at the third, etc. \\
 				\\
 				Thus, the maximum number of computations is $\sum_{k = 1}^\infty n^2/2^k = 2n^2$, thus $T(n) = O(n^2)$
-
-
-
-
-
+			\subsubsection{Divide and Conquer Recurrences}
+				Master theorem: if $T(n) = aT(n/b) + O(n^d)$ for some constants $a > 0, b > 1$, and $d \geq 0$, then:
+				\begin{enumerate}[(i)]
+					\item $T(n) = O(n^d)$ if $d > \log_b a$
+					\item $T(n) = O(n^d \log n)$ if $d = \log_b a$
+					\item $T(n) = O(n^{\log_b a})$ if $d < \log_b a$
+					\end{enumerate}
+				Proof: consider the recursion tree for such a problem \\
+				Notice that $a$ is the branching factor of the problem. At the $i$th level (starting at index 0), there are $a^i$ subproblems of size $n/b^i$. which means the computation that must be done at that level is $a^iO((n/b^i)^d)$ \\
+				The number of levels in the recusion tree is $k = \log_b n$ \\
+				As such: $T(n) = \sum_{i = 0}^k a_iO((n/b^i)^d) = O(n^d)\sum_{i = 0}^k(a/b^d)^i$. Now consider the cases
+				\begin{enumerate}[(i)]
+					\item If $d > \log_b a$, then $a/b^d < 1$ \\
+					$\sum_{i = 0}^\infty (a/b^d)^i < \infty$ (i.e. series converges) \\
+					$\sum_{i = 0}^\infty (a/b^d)^i = O(1)$, so $T(n) = O(n^d)$
+					\item If $d = \log_b a$, then $a/b^d = 1$ \\
+					$\sum_{i = 0}^k (a/b^d)^i = \sum_{i = 0}^k 1 = k + 1$, since $k = \log_b n = \log n/\log b = O(\log n)$ \\
+					Therefore, $T(n) = O(n^d\log n)$
+					\item If $d < \log_b a$, then $a/b^d > 1$ \\
+					$\sum_{i = 0}^k (a/b^d)^i = O((a/b^d)^k)$, so $T(n) = O(n^d)O(a^k)/b^{dk}$ \\
+					Since $k = \log_b n, n = b^k$, $T(n) = O(n^d)O(a^k)/n^d = O(a^k)$ \\
+					$a^k = a^{\log_b n} = n^{\log_b a}$, so $T(n) = O(n^{\log_b a})$
+					\end{enumerate}
 
 	\appendix
+
+	\section{Logarithms}
 
 
 	\end{document}
