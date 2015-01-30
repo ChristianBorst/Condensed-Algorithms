@@ -111,6 +111,25 @@
 					Since $k = \log_b n, n = b^k$, $T(n) = O(n^d)O(a^k)/n^d = O(a^k)$ \\
 					$a^k = a^{\log_b n} = n^{\log_b a}$, so $T(n) = O(n^{\log_b a})$
 					\end{enumerate}
+			\subsection{Asymptotics}
+				Notation for asymptotics:
+				\begin{enumerate}[(i)]
+					\item $f$ and $g$ are real value functions on $x \geq 0$. $f(x)$, $g(x) \geq 0$ for sufficiently large $x$ \\
+					Sufficently large: $\exists x_0 > 0$ such that $f(x) \geq 0$ when $x \geq x_0$
+					\item $f = O(g)$ means that for some $c > 0$ and $x_0 > 0$, $f(x) \leq cg(x)$ for al $x \geq x_0$
+					\item $f = \Omega(g)$ means that for some $c > 0$ and $x_0 \geq 0$, $f(x) \geq xg(x)$ for all $x \geq x_0$ \\
+					This is equivalent to saying that $g = O(f)$
+					\item $f = \Theta(g)$ means that $f = O(g)$ and $f = \Theta(g)$
+					\end{enumerate}
+				Demonstrating that $f = O(g)$ can be done algebraically, or via L'Hopital's rule \\
+				\\
+				Additional definitions:
+				\begin{enumerate}[(i)]
+					\item $f = o(g)$ means $\lim_{x \to \infty} f(x)/g(x) = 0$
+					\item $f \sim g$ means $\lim_{x \to \infty} f(x)/g(x) = 1$
+					\end{enumerate}
+				Polynomial growth: $f$ is polynomially bounded if $f(x) = O(x^k)$ for some $k > 0$, (efficiently computable) \\
+				Exponential growth: $f$ is exponential growth if $f(x) = O(\alpha^x)$ for some $\alpha > 1$
 
 	\appendix
 
