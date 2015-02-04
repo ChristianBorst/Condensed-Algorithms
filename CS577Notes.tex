@@ -41,7 +41,7 @@
 			 	\item $M(n) = 2M(n/4) + n + (n/2)$
 			 	\item $M(n) = 2M(n/2^k) + n + (n/2) +\:....\:+ (n/2^{k - 1})$
 			 	\item Let $k = a$, $2M(1) + \sum_{i = 1}^{k - 1} n/2^i$ (unclarified point)
-			 	\item Mergsort is $O(n \log n)$
+			 	\item Mergesort is $O(n \log n)$
 			 	\end{enumerate}
 		\subsection{Recursive Linear Selection}
 			Recursive linear selection algorithm: given $x_1, x_2, ..., x_n$ distinct keys, find $x_k$ (i.e. the $k$th smallest element) without using sorting \\
@@ -149,7 +149,24 @@
 			Open question: does there exist $O(n)$ algorithm for multiplication \\
 			\\
 			Matrix multiplication: let $A = (a_{i, j}), B = (b_{i ,j})$ for $1 \leq i, j \leq n$ \\
-			Then $C = (c_{i, j})$, where $c_{i, j} = \sum_{k = 1}^n a_{i, k}n_{k, j}$
+			Then $C = (c_{i, j})$, where $c_{i, j} = \sum_{k = 1}^n a_{i, k}n_{k, j}$ \\
+			Recursive algorithm for matrix multiplication: subblocks of matricies can be multipled as follows
+			\begin{equation*}
+				\text{Since } X = \begin{bmatrix} A & B \\ C & D \end{bmatrix}
+				\text{ and } Y = \begin{bmatrix} E & F \\ G & H \end{bmatrix}
+				\text{, then } XY = \begin{bmatrix}	AE + BG & CE + DG \\ AF + BH & CF + DH \end{bmatrix}
+				\end{equation*}
+			The 8 products required tocan be found recursively, resulting in $T(n) = 8T(n/2) + O(n^2) = O(n^3)$ \\
+			A matrix decomposition can be used to make a faster algorithm, requiring only 7 products:
+			\begin{equation*}
+				\begin{bmatrix}
+					P_5 + P_4 - P_2 + P_6 & P_1 + P_2 \\
+					P_3 + P_4 & P_1 + P_5 - P_3 - P_7
+					\end{bmatrix}
+				\end{equation*}
+			The products $P_1, P_2, ..., P_7$ are defined respectively as: \\
+			$A(F - H), (A + B)H, (C + D)E, D(G - E), (A + D)(E + H), (B - D)(G + H), (A - C)(E + F)$ \\
+			The complexity, by the master theorem, is: $T(n) = 7T(n/2) + O(n^2) = O(n^{\log_2 7}) \approx O(n^{2.81})$
 		\clearpage
 		
 	\appendix
