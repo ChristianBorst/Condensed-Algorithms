@@ -204,7 +204,23 @@
 		\subsection{Random Choices in Algorithms}
 			Example: seearch aray for a 1, where $\Sigma = \{0, 1\}$, and array has $50\%$ 0s \\
 			A deterministic algorithm will use a linear search, with worst case taking $n/2$ time \\
-			A random algorithm will have an average case of 2 array accesses 
+			Let $T$ be the queries to find: $E(T) = \sum_{t = 0}^\infty t/2^t = 2$ \\
+			\\
+			Example: Quicksort (with randomly chosen pivot) to sort distinct set $x_1, ..., x_n$ \\
+			Choose $1 \leq i \leq n$ at random, let pivot $p = x_i$ \\
+			Acts just like quicksort on a randomly ordered input \\
+			\\
+			Skip lists: storing a list of distinct sorted numbers \\
+			Multilevel indicies, i.e. various elements stored in nodes, with 2-way connections between:
+			\begin{enumerate}[(i)]
+				\item Adjacent elements (connections between elements of the same level)
+				\item Identical elements (connections between various levels)
+				\end{enumerate}
+			Tab locations (e.g. nodes at higher levels) made using random choices \\
+			Setinels: use before and after at each level (e.g. $\infty$ and $-\infty$) \\
+			To find value: start at highest level, decend right before element value is passed \\
+			The number of levels for any particular index is randomly determined \\
+			Number of nodes in skip list: $E(\#nodes) = \sum_{x \in keys}E(heihgt)$, where $E(height) = 2$
 		\clearpage
 		
 	\appendix
