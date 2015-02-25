@@ -128,6 +128,9 @@
 				\end{enumerate}
 			Polynomial growth: $f$ is polynomially bounded if $f(x) = O(x^k)$ for some $k > 0$, (efficiently computable) \\
 			Exponential growth: $f$ is exponential growth if $f(x) = O(\alpha^x)$ for some $\alpha > 1$
+		\clearpage
+
+	\section{Arithmetic Algorithms and Sorted Lists}
 		\subsection{Arithmetic Algorithms}
 			Addition: elementary (i.e. sum and carry bits), adding two $n$-bit numbers has $O(n)$ complexity \\
 			Subtraction: inverse of addition, similarly requires $O(n)$ times \\
@@ -219,10 +222,74 @@
 			Tab locations (e.g. nodes at higher levels) made using random choices \\
 			Setinels: use before and after at each level (e.g. $\infty$ and $-\infty$) \\
 			To find value: start at highest level, decend right before element value is passed \\
+			\\
 			The number of levels for any particular index is randomly determined \\
-			Number of nodes in skip list: $E(\#nodes) = \sum_{x \in keys}E(heihgt)$, where $E(height) = 2$
+			Number of nodes in skip list: $E(\#nodes) = \sum_{x \in keys}E(height)$, where $E(height) = 2$ \\
+			The height of the skip list is based on a geometric random variable, i.e. height is flip number for first head \\
+			Analysis of skip lists: expected cost of search, insert, and delete is $O(\log{n})$
+		\subsection{Splay Trees}
+			Amortized analysis: expected complexity value for a series of operations \\
+			Splaying: used to create logarithmic amortized bound \\
+			\\
+			Splaying restructures tree to move latest node to the root
+			\begin{enumerate}[(a)]
+				\item Zig case: single rotation to put $x$ at root
+				\item Zig-zag case: two single rotations, parent and grandparent each rotated
+				\item Zig-zig case: double rotation, parent and grandparent rotated at once via $x$
+				\end{enumerate}
+			\begin{center}
+				\includegraphics[width = 2.7in]{splaying.png}
+				\end{center}
+			Triangles in figure represent subtrees. Trees shown here can themselves be subtrees \\
+			\\
+			Operations on splay trees: element $x$
+			\begin{enumerate}[(i)]
+				\item Insertion: splay upon insertion, $x$ becomes new root
+				\item Find: if search is successful, splay $x$ to new root, otherwise, last node access prior to reaching null value becomes new root
+				\item FindMin and FindMax: splay after access, $x$ moved to root
+				\item DeleteMin and DeleteMax:
+				\begin{enumerate}[(a)]
+					\item DeleteMin: perform FindMin, brining minimum to root \\
+					By binary search tree property, no left child. Use right child as new root
+					\item DeleteMax: perform FindMax, brining maximum to root \\
+					By binary search tree property, no right child. Use left child as new root
+					\end{enumerate}
+				\item Remove: bring $x$ to the root and delete, leaving left and right subtrees $L$ and $R$ \\
+				Use deleteMax to find largest element in $L$, leaving root of $L$ with no right child \\
+				Make $R$ the right child of $L$'s root
+				\end{enumerate}
+			Key insight: any node at depth $d$ on access path gets moved to a new depth $d' \leq d/2 + 3 = d/2 + O(1)$ \\
+			Top-down splay tree: at any point in middle of splay
+			\begin{enumerate}[(i)]
+				\item The current node $x$ is the root of the subtree
+				\item Tree $L$ stores nodes less than $X$
+				\item Tree $R$ stores nodes greater than $X$
+				\end{enumerate}
+			Initially, $X$ is the root, and $L$ and $R$ are empty \\
+			Descend tree two levels at a time, encountering a pair of nodes: \\
+			\begin{enumerate}[(i)]
+				\item Nodes are placed in $L$ or $R$ depending on if they are smaller or larger than $x$
+				\item Subtrees not on access path to $x$ also put in $L$ and $R$ trees
+				\item When $x$ reached, attach $L$ and $R$ to bottom of middle tree
+				\end{enumerate}
 		\clearpage
-		
+	
+	\section{Data Structures and Algorithms}
+		\subsection{Graphs and Graph Traversal}
+		\subsection{Shortest Path Problems}
+		\subsection{Cycle Detection Problem}
+		\subsection{Sources and Sinks in Directed Acyclic Graphs}
+		\subsection{Maximum Spanning Trees}
+		\subsection{NP-complete Problems}
+		\clearpage
+
+	\section{Dynamic Programming}
+		\clearpage
+
+	\section{Network Flow and Linear Programming}
+		\clearpage
+
+
 	\appendix
 
 	\section{Review of Basic Mathematical Concepts}
