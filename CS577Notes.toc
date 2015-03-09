@@ -12,11 +12,11 @@
 \contentsline {section}{\numberline {3}Data Structures and Algorithms}{10}
 \contentsline {subsection}{\numberline {3.1}Graphs and Graph Traversal}{10}
 \contentsline {subsection}{\numberline {3.2}Shortest Path Problems}{10}
-\contentsline {subsection}{\numberline {3.3}Cycle Detection Problem}{10}
-\contentsline {subsection}{\numberline {3.4}Sources and Sinks in Directed Acyclic Graphs}{10}
-\contentsline {subsection}{\numberline {3.5}Maximum Spanning Trees}{10}
-\contentsline {subsection}{\numberline {3.6}NP-complete Problems}{10}
-\contentsline {section}{\numberline {4}Dynamic Programming}{11}
-\contentsline {section}{\numberline {5}Network Flow and Linear Programming}{12}
-\contentsline {section}{\numberline {A}Review of Basic Mathematical Concepts}{13}
-\contentsline {subsection}{\numberline {A.1}Properties of Logarithms}{13}
+\contentsline {subsection}{\numberline {3.3}Cycle Detection Problem}{11}
+\contentsline {subsection}{\numberline {3.4}Sources and Sinks in Directed Acyclic Graphs}{11}
+\contentsline {subsection}{\numberline {3.5}Maximum Spanning Trees}{11}
+\contentsline {subsection}{\numberline {3.6}NP-complete Problems}{11}
+\contentsline {section}{\numberline {4}Dynamic Programming}{12}
+\contentsline {section}{\numberline {5}Network Flow and Linear Programming}{13}
+\contentsline {section}{\numberline {A}Review of Basic Mathematical Concepts}{14}
+\contentsline {subsection}{\numberline {A.1}Properties of Logarithms}{14}

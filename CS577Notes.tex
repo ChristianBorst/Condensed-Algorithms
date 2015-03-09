@@ -276,9 +276,92 @@
 	
 	\section{Data Structures and Algorithms}
 		\subsection{Graphs and Graph Traversal}
+			Depth-first search: relies on two abilites
+			\begin{enumerate}[(i)]
+				\item Marking visited nodes: maintain boolean for each vertex
+				\item Backtracking: use recursion stack for vertex backtracking
+				\end{enumerate}
+			Depth-first search repeatedly explores unvisited nodes until entire graph traversed \\
+			The exploration of each vertex involves the following steps:
+			\begin{enumerate}[(i)]
+				\item Fixed amount of work to mark vertex, and pre/postvisit, $O(|V|)$ time total
+				\item Iterating over adjacent edges to check for unvisited vertices, $O(2|E|)$ time total
+				\end{enumerate}
+			Thus, to traverse the graph $(V, E)$ requires time $O(|V| + |E|)$, i.e. linear in size of the input \\
+			An undirected graph is connected if there is a path between any pair of veritices \\
+			Connected components: connected subsets of vertices of a graph \\
+			\\
+			Breadth-first search: implemented using a queue, initially containing the start node, operates in $O(|V| + |E|)$ times, operating similarly to depth-first search
+			\\
+			Minimum spanning trees (MST): \\
+			Minimum spanning tree of graph $G = (V, E)$ with edge weights $w_e$: $T = (V, E' \subseteq E)$ minimizing $\sum_{e \in E'}w_e$ \\
+			Kruskal's minimum spanning tree algorithm: repeatedly add next lightest edge that doesn't produce a cycle \\
+			\\
+			Correctness of Kruskal's algorithm follows from cut property: suppose edges $X$ are part of a MST of $G = (V, E)$. Then pick any $S \subset V$ for which $X$ does not cross betweeen $S$ and $V - S$ and let $e$ be the lightest edge across the partition. Then $X \cup \{e\}$ is part of some MST \\
+			Cut: any partition of vertices into group $S$ and $V - S$. The cut property states that the lightest edge across any cut is in the MST, provided $X$ have no edges across the cut 
 		\subsection{Shortest Path Problems}
+			Dijkstra's algorithm: breadth-first search using priority queue, given $G = (V, E)$ and lengths $w_e$ \\
+			Algorithm uses distance measure $d(v)$, the shortest distance from start to $v$, and $p(v)$, the parent of $v$
+			\begin{enumerate}[(i)]
+				\item For all $v \in V$, $d(v) = \infty$ and $p(v) = null$, and let $d(s) = 0$
+				\item Create a priority queue from $V$, using $d(v)$ as keys
+				\item While priority queue is not empty
+				\begin{enumerate}[(a)]
+					\item Let $u$ be from popping the min element of priority queue
+					\item For all edges $(u, v) \in E$: if $d(v) > d(u) + w_{(u, v)}$, then set $d(v) = d(u) + w_{(u, v)}$ \\
+					Set $p(v) = u$, then update the priority queue
+					\end{enumerate}
+				\end{enumerate}
+			Priority queue implementations:
+			\begin{enumerate}[(i)]
+				\item Array: unordered array of key values for elements, with initial values set to $\infty$
+				\item Binary heap: complete binary tree, all operations $\log{|V|}$
+				\item $d$-ary heap: heap where nodes have $d$ children
+				\end{enumerate}
 		\subsection{Cycle Detection Problem}
+			Depth-first search in directed graphs: consider the types of edges
+			\begin{enumerate}[(i)]
+				\item Tree edges: part of the DFS forest, connect parents and children
+				\item Back edges: lead a vertex to its ancestor in DFS tree
+				\item Forward edges: lead from vertex to a nonchild descendant in DFS tree
+				\item Cross edges: lead to neither descendants nor ancestors (i.e. postvisted vertices, new to old)
+				\end{enumerate}
+			A directed graph has a cycle if and only if its depth-first search reveals a back egde \\
+			To dinstinguish between edges, use timing information: for each node visitation
+			\begin{enumerate}[(i)]
+				\item Set $pre[v] = clock++$ before checking children, where $clock$ is global clock
+				\item set $post[v] = clock++$ after checking children (i.e. exploring subtree)
+			\end{enumerate}
+			$[pre[v], post[v]]$ is the interval in which the exploration subroutine for $v$ is active \\
+			Note that intervals for a descendant are nested in intervals for their ancestors \\
+			Consider the types of edges and the possible nestings for edge $(u, v)$
+			\begin{enumerate}[(i)]
+				\item Tree/forward: $pre[u] < pre[v] < post[v] < post[u]$, i.e. $[_u[_v]_v]_u$
+				\item Back: $pre[v] < pre[u] < post[u] < post[v]$, i.e. $[_v[_u]_u]_v$
+				\item Cross: $pre[v] < post[v] < pre[u] < post[u]$, i.e. $[_v]_v[_u]_u$
+				\end{enumerate}
 		\subsection{Sources and Sinks in Directed Acyclic Graphs}
+			Sources have no inbound edges, sinks have no outbound edges \\
+			Note that every nonempty directed acyclic graph has at least 1 source and 1 sink \\
+			All directed acyclic graphs can be linearlized: if there's a path from $v$ to $w$, $v$ is before $w$ \\
+			Linearization algorithm: find a source $s$, then recursively linearlize $G = (V - s, E)$ \\
+			Fast linearlization algorithm: obeserve that $post[v]$ decreases along each edge \\
+			Use array to sort post numbers in range 1 to $2|V|$. Put vertex with $post[v] = n$ into $n$th cell \\
+			\\
+			Strongly-connected components (SCC): strongly connected, disjoint sets of vertices, each a subset of $V$ \\
+			If each SCC is collapsed to a single vertex (removing redundant edges) a DAG is the result \\
+			Finding a source: largest post number from DFS is in vertex of source component \\
+			Reverse the edges of the graph to find a sink component by this method \\
+			Kosaraju/Sharir Algorithm: $O(|V| + |E|)$
+			\begin{enumerate}[(i)]
+				\item Run full depth-first search on $G^R$, assign post numbers to all vertices
+				\item While there exist unassigned $v \in V$
+				\begin{enumerate}[(a)]
+					\item Set $v$ to the assigned vertex with the largest post number
+					\item Run depth-first search from $v$ in $G$, assigning all reachable vertices to $v$'s component
+					\end{enumerate}
+					\item Remove $v$ from the graph
+				\end{enumerate}
 		\subsection{Maximum Spanning Trees}
 		\subsection{NP-complete Problems}
 		\clearpage
