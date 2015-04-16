@@ -272,6 +272,13 @@
 				\item Subtrees not on access path to $x$ also put in $L$ and $R$ trees
 				\item When $x$ reached, attach $L$ and $R$ to bottom of middle tree
 				\end{enumerate}
+			Potential function analysis: $\Phi$ maps state (e.g. of splay tree) to non-negative potential value \\
+			Potential function for splay tree: low for balanced trees, high for unbalanced trees
+			\begin{enumerate}[(i)]
+				\item $size(r) =$ number of nodes in subtree rooted at $r$ (including $r$)
+				\item $rank(r) = \log_2(size(r))$
+				\item $\Phi = \sum_r rank(r)$, i.e. the sum of rank for all nodes in the tree
+				\end{enumerate}
 		\clearpage
 	
 	\section{Data Structures and Algorithms}
@@ -298,7 +305,14 @@
 			Kruskal's minimum spanning tree algorithm: repeatedly add next lightest edge that doesn't produce a cycle \\
 			\\
 			Correctness of Kruskal's algorithm follows from cut property: suppose edges $X$ are part of a MST of $G = (V, E)$. Then pick any $S \subset V$ for which $X$ does not cross betweeen $S$ and $V - S$ and let $e$ be the lightest edge across the partition. Then $X \cup \{e\}$ is part of some MST \\
-			Cut: any partition of vertices into group $S$ and $V - S$. The cut property states that the lightest edge across any cut is in the MST, provided $X$ have no edges across the cut 
+			Cut: any partition of vertices into group $S$ and $V - S$. The cut property states that the lightest edge across any cut is in the MST, provided $X$ have no edges across the cut \\
+			\\
+			Prim's algorithm:
+			\begin{enumerate}[(i)]
+				\item Initialize $V_{new} = \{x\}$, where $x$ is an arbitrary starting point, $E_{new} = \{\}$ 
+				\item While $V_{new} \neq V$: find minimal edge $(u, v)$, where $u \in V_{new}$ and $v \in V - V_{new}$, then add $v$ to $V_{new}$ and $(u, v)$ to $E_{new}$
+				\item Output minimum spanning tree: $T = (V_{new}, E_{new})$
+				\end{enumerate}
 		\subsection{Shortest Path Problems}
 			Dijkstra's algorithm: breadth-first search using priority queue, given $G = (V, E)$ and lengths $w_e$ \\
 			Algorithm uses distance measure $d(v)$, the shortest distance from start to $v$, and $p(v)$, the parent of $v$
@@ -362,9 +376,72 @@
 					\end{enumerate}
 					\item Remove $v$ from the graph
 				\end{enumerate}
-		\subsection{Maximum Spanning Trees}
-		\subsection{NP-complete Problems}
+		\subsection{Self Organizing Lists}
+			Average case: $E(t) = \sum_{i = 1}^n ip(i)$, where $p(i)$ is access probability \\
+			Self-organizing lists are rearranged so more likely accessed elements have lower access time \\
+			\\
+			Techniques for rearranging nodes:
+			\begin{enumerate}[(i)]
+				\item Move to front method (MTF): any node accessed is moved to the front of the list
+				\item Count method: each node stores number of times accessed, nodes ordered by decreasing count
+				\item Tranpose method: any node accessed is swapped with preceding node
+				\end{enumerate}
+		\subsection{Union-Find Data Structure}
+			Union-Find data structure: maintains a partition of the universe into disjoint sets \\
+			Structure contains elements, partitioned into disjoint subsets, each with representative element \\
+			To test if elements are in the same subset, compare their representative values \\
+			\\
+			Union-Find data structure has 3 operations:
+			\begin{enumerate}[(i)]
+				\item Makeset: creates singleton set with specified element
+				\item Find: determine the subset of an element, returns a representative element
+				\item Union: join two subsets into a single subset \\
+				Implement by taking root of one element and point it to root of the other
+				\end{enumerate}
+			Can be implemented using trees, with each tree being a subset and the root representing \\
+			\\
+			Rank: the rank of $x$ is the height of $x$'s subtree \\
+			Union by rank: choose the root of larger rank during union operation \\
+			Note that:
+			\begin{enumerate}[(i)]
+				\item Rank increases along a path to root
+				\item Any rank-$k$ node has $\geq 2^k$ nodes in its subtree
+				\item If we have $n$ elements total, $n_k = \#$ of rank $k$ nodes $\leq n/2^k$
+				\end{enumerate}
+			Thus, the complexity of operations are: $O(1)$ for $MakeSet$, $O(\log{n})$ for find and union
 		\clearpage
+
+	\section{NP-Complete Problems}
+		\subsection{NP-Complete Graph Problems}
+			Class P: Decidable in polynomial time, i.e. $O(n^k)$ for some $k \geq 1$ \\
+			Class NP: Certificate decidable in polynomial time, i.e. solution recognizable in polynomial time \\
+			NP complete: two requirements for an NP complete problem
+			\begin{enumerate}[(i)]
+				\item NP-complete problems are in NP
+				\item All NP-complete problems reducible to an NP-complete problem
+				\end{enumerate}
+			Cook-Levin theorem: SAT (Boolean satisfiability) is NP-complete \\
+			By extension, 3CNFSAT is NP-complete \\
+			Three graph-theoretic NP-complete problems: given graph $G$, number $n$
+			\begin{enumerate}[(i)]
+				\item Vertex cover: set of vertices $n$ that touch all edges
+				\item Independent set: set of vertices $n$, none of which joined by an edge
+				\item Clique: set of $n$ fully connected vertices
+				\end{enumerate}
+			3CNFSAT is reducible to vertex cover:
+			\begin{enumerate}[(i)]
+				\item For each boolean variable $x$, create vertices $x$ and $\neg x$, joined by edge
+				\item For each clause, three connected vertices, representing each literal
+				\item Literals connected to corresponding clause gadgets
+				\item For formula with $n$ variables and $c$ clauses, graph has $2n + 3c$ vertices
+				\item Formula is satisfiable if and only if there is a vertex cover of size $n + 2c$ \\
+				$n$ vertices used to cover literal gadgets, $2c$ vertices used to cover clause gadgets
+				\end{enumerate}
+			Independent set reducible to vertex cover: for graph $G = (V, E)$, there is a vertex cover of size $n$ if and only if for the complement of $G$ (opposite edge presence), there is an independent set of size $|V| - n$ \\
+			For graph $G = (V, E)$, $S$ is an independent set if and only if $V - S$ is a vertex cover, since for each edge $(u, v)$, only one of $u, v$ is in $S$, which means at least one of $u, v$ is in $V - S$ \\
+			\\
+			Clique to vertex cover: for graph $G = (V, E)$ and complement $G' = (V, E')$, $G$ has clique of size $k$ if and only if $G'$ has vertex cover of size $|V| - k$ \\
+
 
 	\section{Dynamic Programming}
 		\clearpage

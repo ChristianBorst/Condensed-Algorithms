@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.27)  9 MAR 2015 12:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.8.27)  16 APR 2015 13:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -351,27 +351,57 @@ Underfull \hbox (badness 10000) in paragraph at lines 268--270
  []
 
 [8 <./splaying.png (PNG copy)>] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 290--302
+Underfull \hbox (badness 10000) in paragraph at lines 297--311
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 290--302
+Underfull \hbox (badness 10000) in paragraph at lines 297--311
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--311
 
  []
 
 [10
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 344--356
+Underfull \hbox (badness 10000) in paragraph at lines 358--370
 
  []
 
-[11] [12
 
-] [13
+Underfull \hbox (badness 10000) in paragraph at lines 380--384
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 390--395
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 401--406
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 440--444
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 440--444
+
+ []
+
+[13
 
 ] [14
+
+] [15
 
 ] (./CS577Notes.aux) ) 
 Here is how much of TeX's memory you used:
@@ -396,10 +426,10 @@ blic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 7.pfb>
-Output written on CS577Notes.pdf (14 pages, 238368 bytes).
+Output written on CS577Notes.pdf (15 pages, 244369 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
